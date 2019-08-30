@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>非遗论坛</title>
+		<link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			body,
+			html {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				font-family: "微软雅黑";
+			}
+			nav{
+				height: 50px;
+				background-color: #fff;
+				border: none;
+				box-shadow: 0 3px 8px rgba(50,50,50,0.38);
+			}
+			#current{
+				margin-top: 70px;
+			}
+			
+			#main{
+				background:beige;
+			}
+		    #myCanvas{
+        position: absolute;
+        left: 10px;
+        top: 0;
+    }
+		</style>
+	</head>
+
+	<body>
+		
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<div class="navbar-collapse collapse">
+
+					<ul class="nav navbar-nav navbar-left">
+						<li>
+							<a href="/index">非遗</a>
+						</li>
+						<li>
+							<a href="/about">关于我们</a>
+						</li>
+					</ul>
+				</div>
+				</div>
+
+				<div class="navbar-collapse collapse">
+
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="publish.html" class="dropdown-toggle" data-toggle="dropdown"><img src="../public/img/edit.png" style="width: 20px;height: 20px;"/>发布<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+                    <li>
+                        <a id="action-1" href="/">写想法</a>
+                    </li>
+                    <li>
+                        <a href="/question">提问题</a>
+                    </li>
+                    <li>
+                        <a href="/article">发文章</a>
+                    </li>
+						</ul>
+						<li>
+							{{if user}}
+							  	<li><a>{{user.username}}</a></li>
+							 {{else}}
+							 	<li>
+									<a href="/register">注册</a>
+								</li>
+								<li>
+									<a href="/login">登录</a>
+								</li>
+							{{/if}}
+						</li>
+					</ul>
+				</div>
+
+			</div>
+		</nav>
+
+
+		<section id="current">
+			<div class="container">
+				<div class="row" style="margin: 0 auto;width: 1000px;height: 600px;">
+					<div class="col-md-12" style="width: 100%;max-width: 1920px;">
+								<h2>动手写下你的想法吧：</h2>
+					<canvas id="myCanvas" width="800" height="500" style="background-color: #ccc;"></canvas> 
+				</div>
+					
+					
+				</div>
+			</div>
+		</section>
+		
+		<footer id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12" style="line-height: 30px;">
+						<h5>关于我们</h5>
+						<p>非遗论坛是一个关于非物质文化遗产的社区，专注于为你提供有关非遗的资讯，以及其他的非遗交流的平台</p>
+						<h5>联系我们</h5>
+						<p><span class="glyphicon glyphicon-phone-alt"></span>联系电话：184 765 63210</p>
+						<p><span class="glyphicon glyphicon-envelope"></span>邮箱：2339093596@qq.com</p>
+						<p><span class="glyphicon glyphicon-home"></span>地址：广东省广州市同和区白云大道北金箔广场三楼15号</p>
+						<p>&copy; Copyright 2019-2020 Aijia爱家家居品牌 版权所有  ICP证： 粤ICP备案号78978号<br>广州白云白云大道北有限公司</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</body>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+	<script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script>
+    var myCanvas = document.getElementById('myCanvas');
+    var cv = myCanvas.getContext('2d');
+    cv.strokeStyle = 'yellow';
+    cv.lineWidth = 5;
+
+    myCanvas.onmousedown = function(event){
+    // 获取当前屏幕宽高
+        var e = window.event || event;
+        var x = e.offsetX;
+        var y = e.offsetY;
+       // console.log(x,y);
+        // 开启路径
+        cv.beginPath();
+        // 设置起点
+        cv.moveTo(x,y);
+        myCanvas.onmousemove = function(){
+            var e = window.event || event;
+            var newX = e.offsetX;
+            var newY = e.offsetY;
+            cv.lineTo(newX,newY);
+            cv.stroke();
+        }
+    }
+    myCanvas.onmouseup = function() {
+    // 当鼠标抬起时设置事件停止
+         myCanvas.onmousemove = null;
+    }
+</script>
+</html>
